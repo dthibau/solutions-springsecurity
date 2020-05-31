@@ -2,10 +2,9 @@ spring:
   jpa:
     show-sql: false
     
-appli:
-  secretKey: secret
-  validity: 1000
-  rememberMe: 1000
+  security:
+    user:
+      password: secret
   
 management:
   endpoints:
