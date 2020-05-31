@@ -25,6 +25,8 @@ public class AuthenticationExample {
 			try {
 				Authentication request = new UsernamePasswordAuthenticationToken(name, password);
 				// Authentifier l'utilisateur et si ok positionner l'authentifcation dans le contexte de sécurité
+				Authentication result = am.authenticate(request);
+				SecurityContextHolder.getContext().setAuthentication(result);
 				break;
 			} catch (AuthenticationException e) {
 				System.out.println("Authentication failed: " + e.getMessage());
