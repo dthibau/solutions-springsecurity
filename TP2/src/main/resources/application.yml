@@ -1,10 +1,14 @@
 spring:
   jpa:
-    show-sql: true
+    show-sql: false
     
   security:
     user:
       password: secret
+
+logging:
+  level:
+    org.springframework.security: DEBUG
   
 management:
   endpoints:
