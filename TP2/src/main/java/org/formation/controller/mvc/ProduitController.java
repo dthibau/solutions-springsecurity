@@ -8,6 +8,9 @@ import org.formation.model.FournisseurRepository;
 import org.formation.model.Produit;
 import org.formation.model.ProduitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +42,16 @@ public class ProduitController {
 			model.addAttribute("produits", produitRepository.findAll());
 		} 
 	
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(auth.getCredentials());
+		System.out.println(auth.getPrincipal());
+		System.out.println(auth.getDetails());
+		System.out.println(auth.getName());
+		
+
+		auth.getAuthorities().forEach(System.out::println);
+
+		
 		return "produits";
 	}
 	@GetMapping("/edit")
