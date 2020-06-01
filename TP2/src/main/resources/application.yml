@@ -6,9 +6,9 @@ spring:
     user:
       password: secret
 
-#logging:
-#  level:
-#    org.springframework.security: DEBUG
+logging:
+  level:
+    org.springframework.security: DEBUG
   
 management:
   endpoints:
