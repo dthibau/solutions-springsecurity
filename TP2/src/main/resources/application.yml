@@ -15,3 +15,9 @@ management:
     web:
       exposure:
         include: "*"
+        
+appli:
+  jwt:
+    secretKey: secret
+    validity: 1000
+    rememberMe: 1000
