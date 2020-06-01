@@ -28,7 +28,7 @@ public class WebMvcSecurityConfig extends WebSecurityConfigurerAdapter {
 		// TODO Auto-generated method stub
 		super.configure(http);
 		
-		http.logout().logoutUrl("/logout")                   
+		http.rememberMe().alwaysRemember(true).and().logout().logoutUrl("/logout")                   
 		  .logoutSuccessUrl("/")             
 		  .invalidateHttpSession(true);
 		
