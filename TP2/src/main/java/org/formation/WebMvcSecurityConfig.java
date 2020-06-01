@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
@@ -27,13 +28,26 @@ public class WebMvcSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web
+        .ignoring()
+        .antMatchers("/resources/**")
+        .antMatchers("/publics/**")
+        .antMatchers("/webjars/**");
+	}
+
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// TODO Auto-generated method stub
-		super.configure(http);
 		
-		http.sessionManagement().maximumSessions(2).and().and().logout().logoutUrl("/logout")                   
-		  .logoutSuccessUrl("/")             
-		  .invalidateHttpSession(true);
+		http.authorizeRequests()
+		.antMatchers("/fournisseurs*").hasRole("MANAGER")
+		.antMatchers("/produits*").hasAnyRole("PRODUCT_MANAGER","MANAGER")
+		.antMatchers("/swagger-ui.html","/swagger-resources/**","/v2/api-docs/**").permitAll()
+		.antMatchers("/api/*").permitAll()
+		.antMatchers("/actuator/**").permitAll()
+		.anyRequest().authenticated().and().formLogin().and().logout().logoutUrl("/logout").invalidateHttpSession(true)
+		.permitAll();
+
 		
 	}
 
