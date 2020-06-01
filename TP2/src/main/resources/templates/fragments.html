@@ -14,8 +14,8 @@
 	href="/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css">
 		</head>
 	</div>
-	
-	
+
+
 	<div th:fragment="navbar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<a class="navbar-brand" href="#">Catalogue Produit</a>
@@ -50,6 +50,9 @@
 						placeholder="Rechercher" aria-label="Search">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
 				</form>
+				<ul class="navbar-nav my-2 my-lg-0">
+					<li class="nav-item"><a class="nav-link" href="/logout">Logout</a>
+				</ul>
 			</div>
 		</nav>
 	</div>
