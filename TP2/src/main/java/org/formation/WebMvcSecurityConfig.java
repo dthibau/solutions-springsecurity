@@ -51,10 +51,11 @@ public class WebMvcSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 
 		http.requestMatcher(new RegexRequestMatcher("^((?!/api).)*$", null))
+				.csrf().disable()
 				.authorizeRequests()
-				
 				.anyRequest()
-				.authenticated().and().oauth2Login().and().formLogin();
+				.authenticated().and().formLogin().loginPage("/oauth_login")
+				.and().oauth2Login().loginPage("/oauth_login").permitAll().defaultSuccessUrl("/");
 
 	}
 
