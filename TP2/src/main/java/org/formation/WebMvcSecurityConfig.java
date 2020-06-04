@@ -55,7 +55,7 @@ public class WebMvcSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.anyRequest()
 				.authenticated().and().formLogin().loginPage("/oauth_login")
-				.and().oauth2Login().loginPage("/oauth_login").permitAll().defaultSuccessUrl("/");
+				.and().oauth2Login().loginPage("/oauth_login").permitAll().defaultSuccessUrl("/loginSuccess");
 
 	}
 
