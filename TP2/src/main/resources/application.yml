@@ -6,6 +6,12 @@ spring:
     user:
       password: secret
 
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 592478762979-m9jq555btrtq30hvdbn7h9uc8evarbd7.apps.googleusercontent.com
+            client-secret: bI3VLaBK3Jx3jSwZNNiuiswN
 logging:
   level:
     org.springframework.security: DEBUG
@@ -21,3 +27,4 @@ appli:
     secretKey: secret
     validity: 1000
     rememberMe: 1000
+    

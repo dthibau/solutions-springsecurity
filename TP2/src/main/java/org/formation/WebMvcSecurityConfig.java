@@ -35,19 +35,26 @@ public class WebMvcSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/resources/**").antMatchers("/publics/**").antMatchers("/webjars/**");
+//		web.ignoring().antMatchers("/resources/**").antMatchers("/publics/**").antMatchers("/webjars/**");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.requestMatcher(new RegexRequestMatcher("^((?!api).)*$", null)).csrf().disable().authorizeRequests()
-				.antMatchers("/fournisseurs*").hasRole("MANAGER").antMatchers("/produits*")
-				.hasAnyRole("PRODUCT_MANAGER", "MANAGER")
-				.antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs/**").permitAll()
-				.antMatchers("/actuator/**").permitAll().antMatchers("/api/authenticate").permitAll().anyRequest()
-				.authenticated().and().formLogin().and().logout().logoutUrl("/logout").invalidateHttpSession(true)
-				.permitAll();
+//		http.requestMatcher(new RegexRequestMatcher("^((?!api).)*$", null)).csrf().disable().authorizeRequests()
+//				.antMatchers("/fournisseurs*").hasRole("MANAGER").antMatchers("/produits*")
+//				.hasAnyRole("PRODUCT_MANAGER", "MANAGER")
+//				.antMatchers("/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs/**").permitAll()
+//				.antMatchers("/actuator/**").permitAll().antMatchers("/api/authenticate").permitAll().anyRequest()
+//				.authenticated().and().formLogin().and().logout().logoutUrl("/logout").invalidateHttpSession(true)
+//				.permitAll();
+		
+
+		http.requestMatcher(new RegexRequestMatcher("^((?!/api).)*$", null))
+				.authorizeRequests()
+				
+				.anyRequest()
+				.authenticated().and().oauth2Login().and().formLogin();
 
 	}
 
