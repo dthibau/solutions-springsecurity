@@ -1,6 +1,7 @@
 package org.formation.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -18,6 +19,8 @@ import org.formation.model.ProduitRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.test.context.support.WithMockUser;
 
 @SpringBootTest
 public class ImportProduitTest {
@@ -29,6 +32,7 @@ public class ImportProduitTest {
 	ProduitRepository produitRepository;
 
 	@Test
+	@WithMockUser(username = "manager", roles = "MANAGER")
 	public void testSample() throws IOException, URISyntaxException {
 		Path path = Paths.get(getClass().getClassLoader().getResource("sample.csv").toURI());
 
@@ -45,5 +49,15 @@ public class ImportProduitTest {
 				() -> new EntityNotFoundException() );
 
 		assertEquals(14, p.getAvailability());
+	}
+	
+	@Test
+	@WithMockUser(username = "pmanager", roles = "PRODUCT_MANAGER")
+	public void aProductManagerCannotImport() throws IOException, URISyntaxException {
+		Exception exception = assertThrows(AccessDeniedException.class, () -> importProduitService.importLines(""));
+		
+		
+		 System.out.println(exception.getMessage());
+		
 	}
 }
