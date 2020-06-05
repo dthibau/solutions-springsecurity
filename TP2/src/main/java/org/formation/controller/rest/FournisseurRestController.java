@@ -24,7 +24,7 @@ public class FournisseurRestController {
 	FournisseurRepository fournisseurRepository;
 	
 	@GetMapping("{reference}")
-	public Fournisseur findByReference(@PathVariable("fournisseur") String reference) {
+	public Fournisseur findByReference(@PathVariable("reference") String reference) {
 		return fournisseurRepository.findByReference(reference).orElseThrow(() -> new EntityNotFoundException("Fournissseur inconnu :"+reference));
 	}
 	

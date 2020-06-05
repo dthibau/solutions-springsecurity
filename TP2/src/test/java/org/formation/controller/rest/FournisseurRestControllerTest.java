@@ -1,21 +1,25 @@
 package org.formation.controller.rest;
 
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Optional;
+
+import org.formation.model.Fournisseur;
 import org.formation.model.FournisseurRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(value=FournisseurRestController.class)
-@ActiveProfiles("memory")
+//@ActiveProfiles("memory")
 public class FournisseurRestControllerTest {
 	
 	@Autowired
@@ -25,10 +29,11 @@ public class FournisseurRestControllerTest {
 	private FournisseurRepository fournisseurRepository;
 	
 	@Test
-//	@WithMockUser
+	@WithMockUser
 	public void testFindReference() throws Exception {
 
-		mvc.perform(get("/api/fournisseurs/bel/")).andExpect(status().isOk());
+		given(this.fournisseurRepository.findByReference("BELLE")).willReturn(Optional.of(new Fournisseur()));
+		mvc.perform(get("/api/fournisseurs/BELLE/")).andExpect(status().isOk());
 	}
 
 }
