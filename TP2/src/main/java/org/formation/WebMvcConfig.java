@@ -2,6 +2,7 @@ package org.formation;
 
 import java.util.Locale;
 
+import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,5 +27,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	    ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
 	    messageSource.addBasenames("classpath:org/springframework/security/messages");
 	    return messageSource;
+	}
+	
+	@Bean
+	public InMemoryAuditEventRepository repository(){
+	 return new InMemoryAuditEventRepository();
 	}
 }
